@@ -54,7 +54,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link href="/login">
-                  <Button size="lg" variant="secondory" className="border-2 border-white text-white hover:bg-white hover:text-indigo-700 font-semibold px-8 py-4 rounded-xl transition-all duration-300">
+                  <Button size="lg" variant="secondary" className="border-2 border-white text-white hover:bg-white hover:text-indigo-700 font-semibold px-8 py-4 rounded-xl transition-all duration-300">
                     Supervisor Login
                   </Button>
                 </Link>
