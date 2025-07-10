@@ -4,7 +4,8 @@ export interface UniformModel {
   description: string;
   fabricImage: string;
   colorOptions: string[];
-  category: 'shirt' | 'pants' | 'skirt' | 'blazer' | 'dress';
+  // category: 'shirt' | 'pants' | 'skirt' | 'blazer' | 'dress';
+  category: 'shirt';
   isPublished: boolean;
   createdAt: Date;
   publishedAt?: Date;
