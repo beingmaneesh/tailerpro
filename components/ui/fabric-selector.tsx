@@ -9,12 +9,12 @@ import { Check, Info } from 'lucide-react';
 import { fabricCatalog, fabricCategories, FabricOption } from '@/lib/fabric-catalog';
 
 interface FabricSelectorProps {
-  selectedFabric?: FabricOption;
+  selectedFabric?: FabricOption | null;
   onFabricSelect: (fabric: FabricOption) => void;
 }
 
 export function FabricSelector({ selectedFabric, onFabricSelect }: FabricSelectorProps) {
-  const [activeCategory, setActiveCategory] = useState('cotton');
+  const [activeCategory, setActiveCategory] = useState('cotton') ;
 
   const getFabricsByCategory = (category: string) => {
     return fabricCatalog.filter(fabric => fabric.category === category);

@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { ArrowLeft, ArrowRight, Ruler, Info } from 'lucide-react';
 import { Measurements } from '@/lib/types';
+import Image from 'next/image';
 
 const measurementSteps = [
   {
@@ -142,7 +143,7 @@ export default function MeasurementPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
@@ -165,7 +166,7 @@ export default function MeasurementPage() {
                 {Math.round(progress)}% complete
               </span>
             </div>
-            <Progress value={progress} className="h-3 bg-gray-200" />
+            <Progress value={Number(progress.toFixed(2))} className="h-3 bg-gray-200" />
           </div>
 
           {/* Current Measurement */}
@@ -221,19 +222,22 @@ export default function MeasurementPage() {
                       Measurements so far:
                     </p>
                     <div className="space-y-2 max-h-48 overflow-y-auto">
-                      {measurementSteps.slice(0, currentStep + 1).map((step) => (
-                        <div key={step.id} className="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
+                      {[...measurementSteps.slice(0, currentStep + 1)].reverse().map((step) => (
+                        <div
+                          key={step.id}
+                          className="flex justify-between items-center p-2 bg-gray-50 rounded-lg"
+                        >
                           <span className="text-gray-600">{step.title}:</span>
                           <span className="font-semibold text-indigo-700">
-                            {measurements[step.id as keyof Measurements] 
+                            {measurements[step.id as keyof Measurements]
                               ? `${measurements[step.id as keyof Measurements]} ${step.unit}`
-                              : <span className="text-gray-400">Pending</span>
-                            }
+                              : <span className="text-gray-400">Pending</span>}
                           </span>
                         </div>
                       ))}
                     </div>
                   </div>
+
                 </div>
               </div>
             </CardContent>
@@ -245,8 +249,8 @@ export default function MeasurementPage() {
               <ArrowLeft className="h-4 w-4 mr-2" />
               {currentStep === 0 ? 'Back to Order' : 'Previous'}
             </Button>
-            
-            <Button 
+
+            <Button
               onClick={handleNext}
               disabled={!isStepComplete()}
               className="btn-primary px-8 py-3 disabled:opacity-50 disabled:cursor-not-allowed"

@@ -30,7 +30,7 @@ export default function UniformModelsPage() {
     name: '',
     description: '',
     colorOptions: [] as string[],
-    category: 'shirt' as const,
+    category: '' as 'shirt' | 'pants' | 'skirt' | 'blazer' | 'dress',
   });
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function UniformModelsPage() {
 
   const handleCreateModel = () => {
     if (!selectedFabric) return;
-    
+
     const newModel: UniformModel = {
       id: Date.now().toString(),
       name: formData.name,
@@ -68,7 +68,7 @@ export default function UniformModelsPage() {
     if (!editingModel) return;
 
     const fabricImage = selectedFabric ? selectedFabric.image : editingModel.fabricImage;
-    
+
     const updatedModel: UniformModel = {
       ...editingModel,
       name: formData.name,
@@ -124,7 +124,7 @@ export default function UniformModelsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
@@ -155,13 +155,13 @@ export default function UniformModelsPage() {
                     <Label>Model Name</Label>
                     <Input
                       value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g., Classic School Shirt"
                     />
                   </div>
                   <div className="space-y-2">
                     <Label>Category</Label>
-                    <Select value={formData.category} onValueChange={(value: any) => setFormData({...formData, category: value})}>
+                    <Select value={formData.category} onValueChange={(value: any) => setFormData({ ...formData, category: value })}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -179,21 +179,22 @@ export default function UniformModelsPage() {
                   <Label>Description</Label>
                   <Textarea
                     value={formData.description}
-                    onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Describe the uniform model..."
                   />
                 </div>
-                
-                <FabricSelector
-                  selectedFabric={selectedFabric}
-                  onFabricSelect={setSelectedFabric}
-                />
-                
+
+              
+                  <FabricSelector
+                    selectedFabric={selectedFabric}
+                    onFabricSelect={setSelectedFabric}
+                  /> 
+
                 <div className="space-y-2">
                   <Label>Color Options (comma-separated)</Label>
                   <Input
                     value={formData.colorOptions.join(', ')}
-                    onChange={(e) => setFormData({...formData, colorOptions: e.target.value.split(', ').filter(color => color.trim())})}
+                    onChange={(e) => setFormData({ ...formData, colorOptions: e.target.value.split(', ').filter(color => color.trim()) })}
                     placeholder="White, Light Blue, Navy"
                   />
                 </div>
@@ -204,7 +205,7 @@ export default function UniformModelsPage() {
                   }}>
                     Cancel
                   </Button>
-                  <Button 
+                  <Button
                     onClick={handleCreateModel}
                     disabled={!selectedFabric || !formData.name}
                   >
@@ -231,7 +232,7 @@ export default function UniformModelsPage() {
                   </Badge>
                 </div>
               </div>
-              
+
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div>
@@ -243,7 +244,7 @@ export default function UniformModelsPage() {
                   </Badge>
                 </div>
               </CardHeader>
-              
+
               <CardContent>
                 <div className="space-y-3">
                   <div>
@@ -258,7 +259,7 @@ export default function UniformModelsPage() {
                       ))}
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center justify-between pt-2">
                     <div className="flex items-center space-x-2">
                       <Switch
@@ -269,7 +270,7 @@ export default function UniformModelsPage() {
                         {model.isPublished ? 'Published' : 'Draft'}
                       </span>
                     </div>
-                    
+
                     <div className="flex items-center space-x-1">
                       <Button
                         variant="ghost"
@@ -311,13 +312,13 @@ export default function UniformModelsPage() {
                   <Label>Model Name</Label>
                   <Input
                     value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g., Classic School Shirt"
                   />
                 </div>
                 <div className="space-y-2">
                   <Label>Category</Label>
-                  <Select value={formData.category} onValueChange={(value: any) => setFormData({...formData, category: value})}>
+                  <Select value={formData.category} onValueChange={(value: any) => setFormData({ ...formData, category: value })}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
@@ -335,11 +336,11 @@ export default function UniformModelsPage() {
                 <Label>Description</Label>
                 <Textarea
                   value={formData.description}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Describe the uniform model..."
                 />
               </div>
-              
+
               {editingModel && (
                 <div className="space-y-4">
                   <div className="p-4 bg-gray-50 rounded-lg">
@@ -355,19 +356,20 @@ export default function UniformModelsPage() {
                       </span>
                     </div>
                   </div>
-                  
-                  <FabricSelector
-                    selectedFabric={selectedFabric}
-                    onFabricSelect={setSelectedFabric}
-                  />
+                 
+                    <FabricSelector
+                      selectedFabric={selectedFabric}
+                      onFabricSelect={setSelectedFabric}
+                    />
+                 
                 </div>
               )}
-              
+
               <div className="space-y-2">
                 <Label>Color Options (comma-separated)</Label>
                 <Input
                   value={formData.colorOptions.join(', ')}
-                  onChange={(e) => setFormData({...formData, colorOptions: e.target.value.split(', ').filter(color => color.trim())})}
+                  onChange={(e) => setFormData({ ...formData, colorOptions: e.target.value.split(', ').filter(color => color.trim()) })}
                   placeholder="White, Light Blue, Navy"
                 />
               </div>
